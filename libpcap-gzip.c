@@ -185,7 +185,7 @@ fail:
 	return NULL;
 }
 
-const pcap_ioplugin_t* plugin_init() {
+const pcap_ioplugin_t* ioplugin_init() {
 
 	static pcap_ioplugin_t plugin = {
 		.open_read = gzip_open_read,
