@@ -140,7 +140,7 @@ static FILE *gzip_open_write(const char *fname, char *errbuf)
 			return NULL;
 		}
 	} else {
-		fd = open(fname, O_WRONLY);
+		fd = open(fname, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0) {
 			snprintf(errbuf, PCAP_ERRBUF_SIZE, "%s: open: %s",
 							fname, pcap_strerror(errno));
