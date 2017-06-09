@@ -27,7 +27,9 @@ static int gzip_cookie_write(void *cookie, const char *buf, int size)
 	return gzwrite((gzFile)cookie, (voidpc)buf, (unsigned)size);
 }
 
-static int gzip_cookie_close(void *cookie) {
+static int gzip_cookie_close(void *cookie)
+{
+	pcap_ioplugin_unregister_fp_cookie(cookie);
 	return gzclose((gzFile)cookie);
 }
 
@@ -43,7 +45,9 @@ static ssize_t gzip_cookie_write(void *cookie, const char *buf, size_t size)
 	return gzwrite((gzFile)cookie, (voidpc)buf, (unsigned)size);
 }
 
-static int gzip_cookie_close(void *cookie) {
+static int gzip_cookie_close(void *cookie)
+{
+	pcap_ioplugin_unregister_fp_cookie(cookie);
 	return gzclose((gzFile)cookie);
 }
 
@@ -172,6 +176,8 @@ static FILE *gzip_open_write(const char *fname, char *errbuf)
 		goto fail;
 	}
 #endif
+
+	pcap_ioplugin_register_fp_cookie(fp, cookie);
 
 	return fp;
 
